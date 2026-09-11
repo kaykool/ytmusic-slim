@@ -24,9 +24,7 @@
       enumerable: false,
       configurable: true
     });
-  } catch (e) {
-    console.warn('[YTM Audio-Only] deviceIsAudioOnly defineProperty failed:', e);
-  }
+  } catch (e) {}
 
   // 2. Synthetic MockSourceBuffer for video streams
   class MockSourceBuffer extends EventTarget {
