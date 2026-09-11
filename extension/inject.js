@@ -4,9 +4,13 @@
   // Check user toggle preference stored in localStorage
   try {
     if (window.localStorage.getItem('ytm_audio_only_enabled') === 'false') {
+      document.documentElement.removeAttribute('data-ytm-audio-only');
       return;
     }
   } catch (e) {}
+
+  // Set attribute on <html> to immediately engage declarative CSS hiding
+  document.documentElement.setAttribute('data-ytm-audio-only', 'true');
 
   // 1. Enforce deviceIsAudioOnly on YouTube player prototypes and ytcfg
   try {
@@ -123,6 +127,19 @@
         try {
           toggle.onSongAvToggleTap();
         } catch (e) {}
+      }
+    }
+
+    syncAlbumArt();
+  }
+
+  // 5. Album Art Presentation & Thumbnail Fallback Sync
+  function syncAlbumArt() {
+    const mainImg = document.querySelector('#song-image img#img, #song-image #thumbnail img');
+    const playerBarImg = document.querySelector('ytmusic-player-bar .thumbnail-image-wrapper img, ytmusic-player-bar img');
+    if (mainImg && playerBarImg && playerBarImg.src) {
+      if (!mainImg.src || mainImg.src === '' || mainImg.src.includes('data:image')) {
+        mainImg.src = playerBarImg.src;
       }
     }
   }

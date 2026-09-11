@@ -1,0 +1,32 @@
+/* Declarative CSS for video suppression and centered album art presentation */
+
+/* Hide video container and elements completely when Audio-Only is enabled */
+html[data-ytm-audio-only="true"] ytmusic-player #song-video,
+html[data-ytm-audio-only="true"] #song-video,
+html[data-ytm-audio-only="true"] #player video,
+html[data-ytm-audio-only="true"] video.html5-main-video {
+  display: none !important;
+}
+
+/* Force album art container to display centered in player pane */
+html[data-ytm-audio-only="true"] ytmusic-player #song-image,
+html[data-ytm-audio-only="true"] #song-image {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: #000 !important;
+}
+
+/* Style album art thumbnail with aspect-fit contain */
+html[data-ytm-audio-only="true"] ytmusic-player #song-image #thumbnail,
+html[data-ytm-audio-only="true"] ytmusic-player #song-image #thumbnail img,
+html[data-ytm-audio-only="true"] #song-image img#img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}

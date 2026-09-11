@@ -19,6 +19,15 @@
       ],
       "run_at": "document_start",
       "world": "MAIN"
+    },
+    {
+      "matches": [
+        "*://music.youtube.com/*"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "run_at": "document_start"
     }
   ]
 }
