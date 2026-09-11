@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "YTM Audio-Only Prototype",
+  "version": "0.2.1",
+  "description": "Throwaway prototype to verify video decode suppression and audio continuity on YouTube Music.",
+  "content_scripts": [
+    {
+      "matches": ["*://music.youtube.com/*"],
+      "js": ["prototype-hook.js"],
+      "css": ["prototype-style.css"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ]
+}
