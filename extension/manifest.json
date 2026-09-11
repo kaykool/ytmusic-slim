@@ -9,6 +9,10 @@
   "host_permissions": [
     "*://music.youtube.com/*"
   ],
+  "action": {
+    "default_title": "YouTube Music Audio Only",
+    "default_popup": "popup/popup.html"
+  },
   "content_scripts": [
     {
       "matches": [
@@ -19,6 +23,15 @@
       ],
       "run_at": "document_start",
       "world": "MAIN"
+    },
+    {
+      "matches": [
+        "*://music.youtube.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
     },
     {
       "matches": [

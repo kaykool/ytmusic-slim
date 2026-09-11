@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Music Audio Only</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title-row">
+        <span class="icon">🎵</span>
+        <span class="title">Audio Only</span>
+      </div>
+      <span class="badge" id="thermal-badge">Cool Mode</span>
+    </div>
+
+    <div class="toggle-card">
+      <div class="toggle-info">
+        <span class="toggle-label" id="status-text">Audio Only: ON</span>
+        <span class="toggle-desc">Halts video decoding to free CPU/GPU</span>
+      </div>
+      <label class="switch" for="toggle-checkbox" aria-label="Toggle Audio Only Mode">
+        <input type="checkbox" id="toggle-checkbox" checked>
+        <span class="slider round"></span>
+      </label>
+    </div>
+
+    <div class="footer">
+      <span>music.youtube.com</span>
+      <span class="dot">·</span>
+      <span>0 Decoded Frames</span>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
