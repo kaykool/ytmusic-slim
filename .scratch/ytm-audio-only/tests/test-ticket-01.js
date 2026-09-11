@@ -50,8 +50,12 @@ const mockLocalStorage = {
 
 const mockDocument = {
   querySelectorAll: () => [],
+  querySelector: () => null,
   addEventListener: () => {},
-  documentElement: {},
+  documentElement: {
+    setAttribute: () => {},
+    removeAttribute: () => {}
+  },
   readyState: 'complete'
 };
 
