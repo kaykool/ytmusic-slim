@@ -49,44 +49,52 @@
     get buffered() {
       return {
         length: 1,
-        start: () => 0,
-        end: () => 100000
+        start(i) {
+          return 0;
+        },
+        end(i) {
+          return 100000;
+        }
       };
+    }
+
+    _dispatch(name, handler) {
+      const evt = new Event(name);
+      if (typeof handler === 'function') {
+        try { handler.call(this, evt); } catch (e) {}
+      }
+      this.dispatchEvent(evt);
     }
 
     appendBuffer(buf) {
       this.updating = true;
-      const dispatch = (name, handler) => {
-        const evt = new Event(name);
-        if (typeof handler === 'function') {
-          try { handler.call(this, evt); } catch (e) {}
-        }
-        this.dispatchEvent(evt);
-      };
-
-      dispatch('updatestart', this.onupdatestart);
+      this._dispatch('updatestart', this.onupdatestart);
 
       queueMicrotask(() => {
         this.updating = false;
-        dispatch('update', this.onupdate);
-        dispatch('updateend', this.onupdateend);
+        this._dispatch('update', this.onupdate);
+        this._dispatch('updateend', this.onupdateend);
       });
     }
 
     abort() {
+      const wasUpdating = this.updating;
       this.updating = false;
+      if (wasUpdating) {
+        queueMicrotask(() => {
+          this._dispatch('abort', this.onabort);
+          this._dispatch('updateend', this.onupdateend);
+        });
+      }
     }
 
     remove(start, end) {
       this.updating = true;
+      this._dispatch('updatestart', this.onupdatestart);
       queueMicrotask(() => {
         this.updating = false;
-        const evt = new Event('update');
-        if (this.onupdate) this.onupdate(evt);
-        this.dispatchEvent(evt);
-        const endEvt = new Event('updateend');
-        if (this.onupdateend) this.onupdateend(endEvt);
-        this.dispatchEvent(endEvt);
+        this._dispatch('update', this.onupdate);
+        this._dispatch('updateend', this.onupdateend);
       });
     }
 
@@ -106,32 +114,7 @@
     };
   }
 
-  // 4. Polymer AV-Switcher Automation (force Song / Audio Mode on YTM)
-  function enforceAudioMode() {
-    const playerPages = document.querySelectorAll('ytmusic-player-page');
-    for (const page of playerPages) {
-      if (page.videoMode) page.videoMode = false;
-      page.removeAttribute('video-mode');
-    }
-
-    const avToggles = document.querySelectorAll('ytmusic-av-toggle');
-    for (const toggle of avToggles) {
-      if (toggle.mustPlayAudioOnly === false) toggle.mustPlayAudioOnly = true;
-      if (toggle.selectedItemHasVideo === true) toggle.selectedItemHasVideo = false;
-      if (toggle.playbackMode && toggle.playbackMode !== 'ATV_PREFERRED') {
-        toggle.playbackMode = 'ATV_PREFERRED';
-      }
-      if (typeof toggle.onSongAvToggleTap === 'function') {
-        try {
-          toggle.onSongAvToggleTap();
-        } catch (e) {}
-      }
-    }
-
-    syncAlbumArt();
-  }
-
-  // 5. Album Art Presentation & Thumbnail Fallback Sync
+  // 4. Album Art Presentation & Thumbnail Fallback Sync
   function syncAlbumArt() {
     const mainImg = document.querySelector('#song-image img#img, #song-image #thumbnail img');
     const playerBarImg = document.querySelector('ytmusic-player-bar .thumbnail-image-wrapper img, ytmusic-player-bar img');
@@ -142,14 +125,13 @@
     }
   }
 
-  // Observe DOM additions and navigation transitions
-  const observer = new MutationObserver(enforceAudioMode);
-  observer.observe(document.documentElement, { childList: true, subtree: true });
-  document.addEventListener('yt-navigate-finish', enforceAudioMode);
-  document.addEventListener('state-navigateend', enforceAudioMode);
+  // Hook navigation transitions safely without mutating Polymer internals
+  document.addEventListener('yt-navigate-finish', syncAlbumArt);
+  document.addEventListener('yt-page-data-updated', syncAlbumArt);
+  document.addEventListener('state-navigateend', syncAlbumArt);
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', enforceAudioMode);
+    document.addEventListener('DOMContentLoaded', syncAlbumArt);
   } else {
-    enforceAudioMode();
+    syncAlbumArt();
   }
 })();
