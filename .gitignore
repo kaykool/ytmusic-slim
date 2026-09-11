@@ -1,0 +1,5 @@
+# Development & Scratch
+.scratch/
+.agents/
+*.log
+.DS_Store
