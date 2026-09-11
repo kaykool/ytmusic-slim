@@ -1,6 +1,6 @@
-/* Declarative CSS for video suppression and centered album art presentation */
+/* Declarative CSS for video suppression, lightweight styling, and album art presentation */
 
-/* Hide video container and elements completely when Audio-Only is enabled */
+/* 1. Video Suppression */
 html[data-ytm-audio-only="true"] ytmusic-player #song-video,
 html[data-ytm-audio-only="true"] #song-video,
 html[data-ytm-audio-only="true"] #player video,
@@ -8,7 +8,7 @@ html[data-ytm-audio-only="true"] video.html5-main-video {
   display: none !important;
 }
 
-/* Force album art container to display centered in player pane */
+/* 2. Album Art Centering */
 html[data-ytm-audio-only="true"] ytmusic-player #song-image,
 html[data-ytm-audio-only="true"] #song-image {
   display: flex !important;
@@ -29,4 +29,40 @@ html[data-ytm-audio-only="true"] #song-image img#img {
   max-width: 100% !important;
   max-height: 100% !important;
   object-fit: contain !important;
+}
+
+/* 3. Strip Ambient Lighting & Blurred Canvases */
+html[data-ytm-audio-only="true"] ytmusic-player-page #background,
+html[data-ytm-audio-only="true"] ytmusic-player-page #blurred-background,
+html[data-ytm-audio-only="true"] #player-page-blurred-background,
+html[data-ytm-audio-only="true"] .canvas-blurred-background,
+html[data-ytm-audio-only="true"] .ambient-background,
+html[data-ytm-audio-only="true"] ytmusic-player-page canvas,
+html[data-ytm-audio-only="true"] #background.ytmusic-player-page {
+  display: none !important;
+}
+
+/* 4. Disable Expensive Backdrop Filters and Image Blurs */
+html[data-ytm-audio-only="true"] * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 5. Strip Box Shadows and Text Shadows */
+html[data-ytm-audio-only="true"] ytmusic-player,
+html[data-ytm-audio-only="true"] ytmusic-player-bar,
+html[data-ytm-audio-only="true"] ytmusic-nav-bar,
+html[data-ytm-audio-only="true"] #player-page,
+html[data-ytm-audio-only="true"] #song-image,
+html[data-ytm-audio-only="true"] .thumbnail,
+html[data-ytm-audio-only="true"] paper-dialog,
+html[data-ytm-audio-only="true"] #guide-wrapper {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* 6. Release Compositing Layer Memory */
+html[data-ytm-audio-only="true"] ytmusic-player-page,
+html[data-ytm-audio-only="true"] ytmusic-player {
+  will-change: auto !important;
 }
