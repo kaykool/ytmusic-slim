@@ -18,6 +18,7 @@ A complete technical implementation specification at `.scratch/ytm-audio-only/sp
 - [03: Decode suppression prototype](file:///home/sw/1DEV/gemin/.scratch/ytm-audio-only/wayfinder/03-decode-suppression-prototype.md): Live browser prototype verified decode suppression (0 decoded frames), uninterrupted audio across videos/tracks, cool laptop temps (48.8°C), and Trusted Types compliance ([prototype v0.2.1](file:///home/sw/1DEV/gemin/.scratch/ytm-audio-only/prototype/)).
 - [04: UI toggle and album art integration](file:///home/sw/1DEV/gemin/.scratch/ytm-audio-only/wayfinder/04-ui-toggle-and-album-art-integration.md): Toggle stored in `chrome.storage.local` (default ON) with clean tab reload on change; album art rendered in centered aspect-fit (`object-fit: contain`) over `#000` with zero GPU blur shaders.
 - [05: Author technical specification](file:///home/sw/1DEV/gemin/.scratch/ytm-audio-only/wayfinder/05-author-technical-specification.md): Produced comprehensive implementation specification at `.scratch/ytm-audio-only/spec.md` with complete MV3 structure, decode suppression mechanics, and verification criteria ([spec.md](file:///home/sw/1DEV/gemin/.scratch/ytm-audio-only/spec.md)).
+- [Issue 01: Core decode suppression](file:///home/sw/1DEV/gemin/.scratch/ytm-audio-only/issues/01-core-decode-suppression.md): Implemented MV3 manifest and main-world decode suppression in `extension/manifest.json` and `extension/inject.js` using `MockSourceBuffer` and `deviceIsAudioOnly`. Verified via automated tests.
 
 ## Not yet specified
 
