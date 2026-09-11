@@ -3,9 +3,6 @@
   "name": "YouTube Music Audio Only",
   "version": "1.0.0",
   "description": "Halts video streaming and decoding on YouTube Music to reduce CPU/GPU load and keep laptop temperatures cool.",
-  "permissions": [
-    "storage"
-  ],
   "host_permissions": [
     "*://music.youtube.com/*"
   ],
@@ -13,15 +10,6 @@
     "16": "icons/icon-16.png",
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
-  },
-  "action": {
-    "default_title": "YouTube Music Audio Only",
-    "default_popup": "popup/popup.html",
-    "default_icon": {
-      "16": "icons/icon-16.png",
-      "48": "icons/icon-48.png",
-      "128": "icons/icon-128.png"
-    }
   },
   "content_scripts": [
     {
@@ -33,15 +21,6 @@
       ],
       "run_at": "document_start",
       "world": "MAIN"
-    },
-    {
-      "matches": [
-        "*://music.youtube.com/*"
-      ],
-      "js": [
-        "content.js"
-      ],
-      "run_at": "document_start"
     },
     {
       "matches": [

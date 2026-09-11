@@ -11,7 +11,7 @@ It halts video streaming and decoding to keep your laptop cool, save battery, an
 - **Clean Album Art**: Replaces the video canvas with clean, centered album cover art over a pure black background.
 - **Zero Heavy Styling**: Strips ambient glow, canvas repaints, heavy blur filters (`backdrop-filter`), and drop shadows to eliminate GPU compositor load.
 - **Zero Telemetry**: No remote analytics, no tracking, no external CDNs, no background service worker (0 MB idle RAM).
-- **Simple Toolbar Toggle**: Click the extension icon to toggle Audio-Only mode ON or OFF.
+- **Zero Configuration**: Always-on by default with zero popups, buttons, or background processes.
 
 ## How to Install
 

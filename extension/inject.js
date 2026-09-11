@@ -1,14 +1,6 @@
 (function () {
   'use strict';
 
-  // Check user toggle preference stored in localStorage
-  try {
-    if (window.localStorage.getItem('ytm_audio_only_enabled') === 'false') {
-      document.documentElement.removeAttribute('data-ytm-audio-only');
-      return;
-    }
-  } catch (e) {}
-
   // Set attribute on <html> to immediately engage declarative CSS hiding
   document.documentElement.setAttribute('data-ytm-audio-only', 'true');
 
