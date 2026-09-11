@@ -1,5 +1,4 @@
-# Development & Scratch
+# Scratch & temporary logs
 .scratch/
-.agents/
 *.log
 .DS_Store
